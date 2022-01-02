@@ -80,7 +80,7 @@ export default function Home() {
       </Flex>
       <Flex direction={"column"} alignItems={"center"} marginTop={"10"}>
         <Box textAlign={"center"} marginBottom={"10"}>
-          <Text marginBottom={"2"}>You don't have an account?</Text>
+          <Text marginBottom={"2"}>You dont have an account?</Text>
           <Button
             colorScheme={"green"}
             onClick={generateKeys}

@@ -16,22 +16,27 @@ export default function AccountBalances({ accountState, dispatch }) {
   });
   const toast = useToast();
 
-  useEffect(async () => {
-    setBalancesState((state) => ({ ...state, loading: true }));
-    try {
-      const balances = await checkBalance(accountState.userKeypair.publicKey());
-      dispatch({ type: "UPDATE_ACCOUNT_BALANCES", payload: balances });
-      setBalancesState((state) => ({ ...state, loading: false }));
-    } catch (err) {
-      toast({
-        title: "An error has occurred",
-        description: err.message,
-        status: "error",
-        duration: 1500,
-        position: "bottom-start",
-      });
-      setBalancesState((state) => ({ ...state, loading: false }));
+  useEffect(() => {
+    async function viewBalances() {
+      setBalancesState((state) => ({ ...state, loading: true }));
+      try {
+        const balances = await checkBalance(
+          accountState.userKeypair.publicKey()
+        );
+        dispatch({ type: "UPDATE_ACCOUNT_BALANCES", payload: balances });
+        setBalancesState((state) => ({ ...state, loading: false }));
+      } catch (err) {
+        toast({
+          title: "An error has occurred",
+          description: err.message,
+          status: "error",
+          duration: 1500,
+          position: "bottom-start",
+        });
+        setBalancesState((state) => ({ ...state, loading: false }));
+      }
     }
+    viewBalances();
   }, []);
 
   return (
